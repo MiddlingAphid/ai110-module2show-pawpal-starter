@@ -5,7 +5,12 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+
+The initial UML design for PawPal+ follows a hierarchical structure where an Owner manages a collection of Pet objects, each containing its own specific Task routines. A central Scheduler class acts as the system's engine, processing these entities to generate a DailyPlan that organizes activities by time and priority.
+
 - What classes did you include, and what responsibilities did you assign to each?
+
+The initial design of the PawPal+ system centers on five primary classes: Task, Pet, Owner, DailyPlan, and Scheduler. The Task class functions as a dataclass to store specific activity details like title, duration, and priority, while the Pet and Owner classes manage individual animal profiles and overall user availability, respectively. To handle the system's "intelligence," the Scheduler acts as the core engine that processes these inputs to generate a DailyPlan, which is responsible for organizing the final schedule and providing the specific reasoning behind the task order.
 
 **b. Design changes**
 

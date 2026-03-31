@@ -15,7 +15,12 @@ The initial design of the PawPal+ system centers on five primary classes: Task, 
 **b. Design changes**
 
 - Did your design change during implementation?
+
+Yes, my design evolved significantly as I moved from the initial concept to the actual implementation.
+
 - If yes, describe at least one change and why you made it.
+
+One major change I made was shifting the Scheduler from handling a single pet to managing a List of Pets. Originally, the system was too narrow, but I realized that a real-world owner often manages a whole household of animals. By making the scheduler aggregate tasks across all pets, I was able to implement much more effective conflict detection and a unified daily timeline. I also replaced simple string-based priorities with a formal PriorityLevel enum to ensure that the sorting logic was consistent and less prone to errors during task comparisons.
 
 ---
 

@@ -67,6 +67,7 @@ st.subheader("Tasks")
 st.caption("Add a task for a selected pet. The scheduler will use these tasks to build a plan.")
 
 if owner.pets:
+    scheduler = Scheduler(owner=owner, pets=owner.pets)
     pet_options = [pet.name for pet in owner.pets]
     selected_pet_name = st.selectbox("Select pet", pet_options)
     selected_pet = next((pet for pet in owner.pets if pet.name == selected_pet_name), owner.pets[0])
@@ -92,21 +93,30 @@ if owner.pets:
         )
         selected_pet.add_task(new_task)
 
-    if selected_pet.tasks:
-        st.write(f"Tasks for {selected_pet.name}:")
+    filtered_tasks = scheduler.filter_tasks(pet_name=selected_pet.name)
+    sorted_tasks = scheduler.sort_tasks_by_due_time(filtered_tasks)
+
+    if sorted_tasks:
+        st.success(f"Showing sorted tasks for {selected_pet.name}")
         st.table(
             [
                 {
                     "title": task.title,
                     "duration_mins": task.duration_mins,
                     "priority": task.priority.value,
+                    "due_date": task.due_date,
                     "due_time": task.due_time,
                 }
-                for task in selected_pet.tasks
+                for task in sorted_tasks
             ]
         )
     else:
         st.info(f"No tasks for {selected_pet.name} yet. Add one above.")
+
+    conflict_warnings = scheduler.detect_conflicts()
+    if conflict_warnings:
+        for warning in conflict_warnings:
+            st.warning(warning)
 else:
     st.info("Add a pet before adding tasks.")
 
@@ -117,17 +127,27 @@ st.caption("Use your backend scheduler to generate the daily plan.")
 
 if st.button("Generate schedule"):
     scheduler = Scheduler(owner=owner, pets=owner.pets)
+    validation = scheduler.validate_tasks()
+    if validation.warnings:
+        for warning in validation.warnings:
+            st.warning(warning)
+
     daily_plan = scheduler.generate_daily_plan()
-    plan_table = [
-        {
-            "title": task.title,
-            "due_time": task.due_time,
-            "duration_mins": task.duration_mins,
-            "priority": task.priority.value,
-        }
-        for task in daily_plan.tasks
-    ]
-    if plan_table:
-        st.table(plan_table)
+    if daily_plan.tasks:
+        st.success("Schedule generated successfully")
+        st.table(
+            [
+                {
+                    "title": task.title,
+                    "due_date": task.due_date,
+                    "due_time": task.due_time or "Anytime",
+                    "duration_mins": task.duration_mins,
+                    "priority": task.priority.value,
+                }
+                for task in daily_plan.tasks
+            ]
+        )
+        st.write("### Plan explanation")
+        st.write(daily_plan.summarize())
     else:
         st.info("No scheduled tasks are available yet.")

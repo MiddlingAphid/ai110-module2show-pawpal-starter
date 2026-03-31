@@ -29,12 +29,22 @@ One major change I made was shifting the Scheduler from handling a single pet to
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+
+My scheduler primarily balances hard time deadlines and the PriorityLevel assigned to each task, while also checking the owner's total daily availability.
+
 - How did you decide which constraints mattered most?
+
+I prioritized the due_time and priority as the most critical factors because a pet's essential needs, like time-sensitive medication, must always take precedence over flexible activities like grooming.
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+
+One major tradeoff is that the scheduler uses a "first-fit" approach based on priority rather than trying to perfectly shuffle tasks to fill every single minute of the owner's free time.
+
 - Why is that tradeoff reasonable for this scenario?
+
+This is a reasonable compromise because pet care is naturally unpredictable, so a slightly less "packed" schedule provides the necessary buffer for the transitions and delays that happen when working with animals.
 
 ---
 
@@ -43,12 +53,22 @@ One major change I made was shifting the Scheduler from handling a single pet to
 **a. How you used AI**
 
 - How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
+
+I utilized AI primarily for brainstorming the initial system architecture and generating the boilerplate code for the Python dataclasses.
+
 - What kinds of prompts or questions were most helpful?
+
+The most effective prompts were those that specifically requested Mermaid.js syntax for UML diagrams and "agent mode" requests for fleshing out method logic.
 
 **b. Judgment and verification**
 
 - Describe one moment where you did not accept an AI suggestion as-is.
+
+I rejected an AI suggestion to store tasks in a single global list, choosing instead to encapsulate them within specific pet objects to maintain proper data ownership.
+
 - How did you evaluate or verify what the AI suggested?
+
+I verified the AI's algorithmic suggestions by running them through a standalone demo script to observe how they handled real-time inputs.
 
 ---
 
@@ -57,12 +77,22 @@ One major change I made was shifting the Scheduler from handling a single pet to
 **a. What you tested**
 
 - What behaviors did you test?
+
+I tested whether marking a task as complete correctly updated its status and if adding a pet successfully expanded the owner's pet list.
+
 - Why were these tests important?
+
+These tests were vital to ensure that the fundamental state changes in the logic layer were functioning before I integrated them with the UI.
 
 **b. Confidence**
 
 - How confident are you that your scheduler works correctly?
+
+I have high confidence in the core scheduling logic since it passed all automated test suites and correctly sorted tasks in the CLI demo.
+
 - What edge cases would you test next if you had more time?
+
+Given more time, I would test edge cases involving overlapping task durations and pets with empty task lists to ensure the scheduler fails gracefully.
 
 ---
 
@@ -72,10 +102,16 @@ One major change I made was shifting the Scheduler from handling a single pet to
 
 - What part of this project are you most satisfied with?
 
+I am most satisfied with the transition from a single-pet system to a multi-pet household model, which feels much more like a real-world application.
+
 **b. What you would improve**
 
 - If you had another iteration, what would you improve or redesign?
 
+In a future iteration, I would redesign the task input system to include an end-time calculation rather than just a fixed duration.
+
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+
+I learned that being a lead architect means using AI to handle the repetitive scaffolding while I focus on the high-level logic and system relationships.

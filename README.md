@@ -51,6 +51,15 @@ The scheduler now provides smarter task handling with:
 - lightweight conflict detection for overlapping tasks
 - daily/weekly recurring task support when tasks are marked complete
 
+## Features
+
+- Sorting by due date and due time across all household tasks
+- Filtering tasks by pet name and completion status
+- Conflict warnings for tasks scheduled at the same exact date/time
+- Validation of task duration and due time format
+- Recurring task generation when daily or weekly tasks are completed
+- Daily plan generation with explanation and total duration summary
+
 ## Testing PawPal+
 
 Run the automated test suite with:
@@ -62,3 +71,9 @@ python -m pytest
 These tests cover core scheduling behavior, including task sorting order, recurring task generation when daily tasks are completed, and conflict detection for duplicate task times.
 
 **Confidence Level:** ⭐⭐⭐⭐⭐
+
+## 📸 Demo
+
+<a href="uml_final.png" target="_blank">
+  <img src='uml_final.png' title='PawPal App Demo' width='600' alt='PawPal App' class='center-block' />
+</a>

@@ -50,3 +50,15 @@ The scheduler now provides smarter task handling with:
 - filtering by pet name or completion status
 - lightweight conflict detection for overlapping tasks
 - daily/weekly recurring task support when tasks are marked complete
+
+## Testing PawPal+
+
+Run the automated test suite with:
+
+```bash
+python -m pytest
+```
+
+These tests cover core scheduling behavior, including task sorting order, recurring task generation when daily tasks are completed, and conflict detection for duplicate task times.
+
+**Confidence Level:** ⭐⭐⭐⭐⭐
